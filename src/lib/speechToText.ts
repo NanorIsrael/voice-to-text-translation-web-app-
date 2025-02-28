@@ -14,7 +14,7 @@ const translate = new Translate.Translate({
   keyFilename: key
 });
 
-export async function transcribeAudio(audioFilePath: string, targetLanguage: string): Promise<string> {
+export async function transcribeAudio(audioFilePath: string, inputLanguage: string, targetLanguage: string): Promise<string> {
   try {
     const file = fs.readFileSync(audioFilePath);
     const audioBytes = file.toString("base64");
@@ -23,11 +23,11 @@ export async function transcribeAudio(audioFilePath: string, targetLanguage: str
       audio: { content: audioBytes },
       config: {
         // encoding: "OGG_OPUS",  // Use "OGG_OPUS" for WebM/Opus
-        languageCode: "en-US",
+        languageCode: inputLanguage,
         model: "medical_dictation",
       },
     };
-
+    console.log()
     const [response] = await client.recognize(request as any);
     const transcript = response.results?.map(r => r.alternatives[0].transcript).join(" ") || "";
 
@@ -36,7 +36,7 @@ export async function transcribeAudio(audioFilePath: string, targetLanguage: str
     }
 
     // Translate API Call
-    const [translation] = await translate.translate(transcript, "fr");
+    const [translation] = await translate.translate(transcript, targetLanguage);
     return `input text: ${transcript}\n output text:${translation}\n`
   } catch (error) {
     console.error("Transcription Error:", error);
