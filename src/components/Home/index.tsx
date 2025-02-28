@@ -77,15 +77,15 @@ export default function VoiceRecorder() {
            <CustomSelect options={options} selectedOption={selectedOuputputLang} setSelectedOption={setSelectedOutputLang}/>
         </div>
         </form>
+
+        <button onClick={startRecording} className="bg-[#000] text-white px-4 py-2 rounded w-full mt-4">
+          {recording ? "Recording..." : "Speak"}
+        </button>
       </div>
 
 
       <div className="col-span-2 bg-dark  p-4 rounded-lg">
-      <button onClick={startRecording} className="bg-[#000] text-white px-4 py-2 rounded">
-        {recording ? "Recording..." : "Speak"}
-      </button>
       {transcript && <p className="mt-4">Transcript: {transcript}</p>}
-
       </div>
     </div>
       
