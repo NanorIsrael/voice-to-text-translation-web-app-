@@ -3,10 +3,18 @@ import fs from "fs";
 import path from "path";
 import util from "util";
 
-const key = path.join(process.cwd(), process.env.GOOGLE_APPLICATION_CREDENTIALS);
+const base64Key = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
+if (!base64Key) {
+  throw new Error("GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not defined.");
+}
+
+// Decode and write to a temporary file
+const credentialsPath = path.join("/tmp", "gcloud-key.json");
+fs.writeFileSync(credentialsPath, Buffer.from(base64Key, "base64") as any);
 
 const client = new textToSpeech.TextToSpeechClient({
-  keyFilename: key
+  keyFilename: credentialsPath
 });
 
 export async function synthesizeSpeech(text: string, languageCode: string) {
