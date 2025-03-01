@@ -100,7 +100,7 @@ export default function VoiceRecorder() {
           </div>
             <div className="mt-4">
               <audio controls>
-                <source src={"/api/text-to-speech"} type="audio/wav" />
+                <source src={"/api/text-to-speech?type=input"} type="audio/wav" />
                 Your browser does not support the audio element.
               </audio>  
           </div>
@@ -118,7 +118,7 @@ export default function VoiceRecorder() {
               audioUrl &&
               <div className="mt-4">
               <audio controls>
-                <source src={`/api/text-to-speech/voice`} type="audio/wav" />
+                <source src={`/api/text-to-speech?type=output`} type="audio/wav" />
                 Your browser does not support the audio element.
               </audio>  
           </div>
