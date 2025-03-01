@@ -26,7 +26,6 @@ export async function synthesizeSpeech(text: string, languageCode: string) {
 
   const [response] = await client.synthesizeSpeech(request as any);
   const writeFile = util.promisify(fs.writeFile);
-  await writeFile("/tmp/output.wav", response.audioContent as any );
+  await writeFile(path.join("/tmp", "output.wav"), response.audioContent as any );
   return `/output.wav`;
 }
-// ArrayBufferView<ArrayBufferLike>
