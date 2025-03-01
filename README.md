@@ -6,6 +6,6 @@ Objective: Develop a web-based prototype that enables real-time, multilingual tr
 <!--  -->
 
 
-#### [🚀 Live Demo](https://demo.nextmerce.com/)
+#### [🚀 Live Demo](voice-to-text-translation-web-qc9mj7bpm.vercel.app)
 
-#### [🌐 Visit Website](https://nextmerce.com/)
+#### [🌐 Visit Website](voice-to-text-translation-web-qc9mj7bpm.vercel.app)
