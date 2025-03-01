@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 export async function GET() {
-  const filePath = path.join(process.cwd(), "output.wav"); // Path to your audio file
+  const filePath = path.join("/tmp", "output.wav"); // Path to your audio file
 
   try {
 	const file = fs.readFileSync(filePath);

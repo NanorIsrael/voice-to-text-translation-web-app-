@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import path from "path";
 
 export async function GET() {
-  const filePath = path.join(process.cwd(), "audio.wav"); // Path to your audio file
+  const filePath = path.join("/tmp", "audio.wav"); // Path to your audio file
 
   try {
     const file = fs.readFileSync(filePath);

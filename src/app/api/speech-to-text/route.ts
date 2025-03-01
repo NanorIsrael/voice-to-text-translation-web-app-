@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 	// "/tmp"
     // Save the file temporarily
     const buffer = Buffer.from(await audioFile.arrayBuffer());
-    const filePath = path.join(process.cwd(), audioFile.name);
+    const filePath = path.join("/tmp", audioFile.name);
     await fs.writeFile(filePath, buffer as  any);
 
     // Transcribe the saved audio file
