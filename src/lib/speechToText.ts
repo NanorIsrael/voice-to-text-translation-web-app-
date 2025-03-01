@@ -14,7 +14,15 @@ const translate = new Translate.Translate({
   keyFilename: key
 });
 
-export async function transcribeAudio(audioFilePath: string, inputLanguage: string, targetLanguage: string): Promise<string> {
+export interface OutputI {
+  inputText: string
+  outputText: string
+}
+export async function transcribeAudio(
+  audioFilePath: string, 
+  inputLanguage: string,
+  targetLanguage: string
+): Promise<OutputI> {
   try {
     const file = fs.readFileSync(audioFilePath);
     const audioBytes = file.toString("base64");
@@ -27,7 +35,6 @@ export async function transcribeAudio(audioFilePath: string, inputLanguage: stri
         model: "medical_dictation",
       },
     };
-    console.log()
     const [response] = await client.recognize(request as any);
     const transcript = response.results?.map(r => r.alternatives[0].transcript).join(" ") || "";
 
@@ -37,9 +44,15 @@ export async function transcribeAudio(audioFilePath: string, inputLanguage: stri
 
     // Translate API Call
     const [translation] = await translate.translate(transcript, targetLanguage);
-    return `input text: ${transcript}\n output text:${translation}\n`
+    return {
+      inputText: transcript,
+      outputText: translation
+    }
   } catch (error) {
     console.error("Transcription Error:", error);
-    return "Error transcribing audio";
+    return {
+      inputText: "Error transcribing audio",
+      outputText: "Error transcribing audio"
+    }
   }
 }

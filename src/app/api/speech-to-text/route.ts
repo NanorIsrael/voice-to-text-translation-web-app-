@@ -9,7 +9,6 @@ export async function POST(req: Request) {
     const audioFile = formData.get("audio") as File;
     const inputLangCode = formData.get("inputLang") as string;
     const outputLangCode = formData.get("outputLang") as string;
-    console.log("=====>", inputLangCode.trim(), outputLangCode.trim())
 
     if (!audioFile) {
       return NextResponse.json({ error: "No audio file provided" }, { status: 400 });
@@ -21,9 +20,8 @@ export async function POST(req: Request) {
     await fs.writeFile(filePath, buffer as  any);
 
     // Transcribe the saved audio file
-    const text = await transcribeAudio(filePath, inputLangCode.trim(), outputLangCode.trim());
-
-    return NextResponse.json({ text });
+    const result = await transcribeAudio(filePath, inputLangCode.trim(), outputLangCode.trim());
+    return NextResponse.json(result);
   } catch (error) {
 	console.log(error)
     return NextResponse.json({ error: "Failed to process audio" }, { status: 500 });
